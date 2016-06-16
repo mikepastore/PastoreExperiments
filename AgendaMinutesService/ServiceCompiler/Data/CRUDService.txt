@@ -1,0 +1,36 @@
+﻿using LegMan.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AMAPI;
+
+namespace AgendaMinutesServiceLib
+{
+    public class MyTableService
+    {
+        private DataAccess mDataAccess;
+
+		public static MyTableService Create(ConnectionInfo info) 
+		{
+			return ServiceFactory.Create<MyTableService>(info);
+		}
+		
+        private MyTableService() { }
+
+        internal static MyTableService Create(DataAccess da)
+        {
+            return new MyTableService { mDataAccess = da };
+        }
+
+        public AMAPI.MyTable Get(KeyType id, string[] fields)
+        {            
+            var record = mDataAccess.DAProp.SelectMyTable<LMMyTable>(id, null).FirstOrDefault();
+            if (record == null)
+                throw new RecordNotFoundException("MyTable", id);
+
+            return MappingHelper.MapLMDataObject<LMMyTable, AMAPI.MyTable>(mDataAccess, record, fields);  
+        }
+    }
+}

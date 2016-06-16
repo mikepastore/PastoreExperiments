@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DABCB3C9-8FCF-492A-AA6A-46A8C9C55848}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AgendaMinutesServiceWeb</RootNamespace>
+    <AssemblyName>AgendaMinutesServiceWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LegMan.Data, Version=1.1.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LegMan.Data.1.1.0.7\lib\LegMan.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LegMan.DataLayer, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LegMan.DataLayer.1.1.0.1\lib\LegMan.DataLayer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\ConnectionInfoProvider.cs" />
+    <Compile Include="App_Start\CustomJSONFormatter.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AgendaController.cs" />
+    <Compile Include="Controllers\AgendaUpdateRequestController.cs" />
+    <Compile Include="Controllers\AgendaVersionController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AppointmentTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AttachmentCategoryController.cs" />
+    <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\AttachmentIncludeOptionController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AttachmentTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AttachmentVisibilityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\AttendanceStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\BudgetSourceController.cs" />
+    <Compile Include="Controllers\CategoryWorkItemController.cs" />
+    <Compile Include="Controllers\CommunicationController.cs" />
+    <Compile Include="Controllers\CommunicationStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\CommunicationTypeController.cs" />
+    <Compile Include="Controllers\ContentFileController.cs" />
+    <Compile Include="Controllers\ContentFileTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DistributionListController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\DocumentTypeController.cs" />
+    <Compile Include="Controllers\EthnicityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\FileFormatController.cs" />
+    <Compile Include="Controllers\FlagStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\FullNumResetPolicyController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\FunctionalCategoryController.cs" />
+    <Compile Include="Controllers\GenderController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\LegalNoticeController.cs" />
+    <Compile Include="Controllers\LegalNoticeStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\LegalNoticeTypeController.cs" />
+    <Compile Include="Controllers\LegiFileTypeController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
+    <Compile Include="Controllers\MediaEncoderController.cs" />
+    <Compile Include="Controllers\MediaEncoderPresetController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MediaEncoderStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MediaEventController.cs" />
+    <Compile Include="Controllers\MediaEventTypeController.cs" />
+    <Compile Include="Controllers\MediaStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MediaVaultStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MeetingController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MeetingLocationController.cs" />
+    <Compile Include="Controllers\MeetingStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MeetingTypeController.cs" />
+    <Compile Include="Controllers\MinutesController.cs" />
+    <Compile Include="Controllers\MinutesItemTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\MinutesStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\OrgGroupTypeController.cs" />
+    <Compile Include="Controllers\OutlineFormatController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProjectTypeController.cs" />
+    <Compile Include="Controllers\PublicHearingController.cs" />
+    <Compile Include="Controllers\PublicHearingStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\RecipientController.cs" />
+    <Compile Include="Controllers\RecipientTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\RecordTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ResLinkTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ResolutionApprovalStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\ResolutionCategoryController.cs" />
+    <Compile Include="Controllers\ResolutionController.cs" />
+    <Compile Include="Controllers\ResolutionSaveReasonController.cs" />
+    <Compile Include="Controllers\ResolutionStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SecurityLockOutController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SeverityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\SpeakerSignupController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TaskPriorityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TemplateController.cs" />
+    <Compile Include="Controllers\TemplateSetController.cs" />
+    <Compile Include="Controllers\TemplateTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TranscodeStatusController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\UserTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\VisibilityController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\VoteController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\VotePassBasisController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\VoteResultController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\VoteResultRoutingController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\VoterRoleController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\WebUploadVersionsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\WorkItemTypeController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AgendaMinuteServiceLib\AgendaMinutesServiceLib.csproj">
+      <Project>{7341ef03-776a-42e8-9037-493e9afc99b2}</Project>
+      <Name>AgendaMinutesServiceLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51786</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51786/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
