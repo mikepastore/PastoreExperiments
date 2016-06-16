@@ -37,8 +37,53 @@ namespace JiraThing
     class Program
     {
         static void Main(string[] args)
+        {
+            var user = ConfigurationManager.AppSettings["jiraUser"];
+            var pwd = ConfigurationManager.AppSettings["jiraPassword"];
+
+            var apiClient = new JIRAAPIClient(user, pwd);
+            var activityFeedReader = new CachedActivityFeedService(new LocalCacheService("ActivityFeeds"), new JiraActivityFeedService(user, pwd));
+            var activityFeedService = new ActivityFeedService(activityFeedReader);
+            var statusService = new StatusService();
+            var durationService = new DurationService();
+            var customFieldService = new CustomFieldService(apiClient);
+
+            var searchService = new SearchService(apiClient, customFieldService);
+            var reportService = new ReportService(searchService, activityFeedService, statusService, durationService);
+               
+            DateTime reportDate;
+            if (DateTime.Now.DayOfWeek == DayOfWeek.Monday)
+                reportDate = DateTime.Now.AddDays(-3);
+            else
+                reportDate = DateTime.Now.AddDays(-1);
+
+            var report = reportService.GetStandupReport(reportDate);
+            var sb = new StringBuilder();            
+            foreach(var standupUser in report.UserReports)
+            {
+                sb.Append("Standup Report for ").Append(standupUser.Developer).AppendLine() ;
+                sb.Append("Total hours = ").Append(standupUser.Items.Sum(p => p.TimeLogged.TotalHours).ToString("0.0")).AppendLine();
+                
+                foreach (var item in standupUser.Items)
+                {
+                    sb.AppendFormat("{0}h ", item.TimeLogged.TotalHours.ToString("0.0"));
+                    sb.Append(" ").Append(item.TicketSummary);
+                    sb.Append(" - ").Append(item.Comment.Replace(Environment.NewLine,""));
+                    sb.AppendLine();
+                }
+
+                sb.AppendLine("-----");
+            }
+
+            Console.WriteLine();
+            Console.Write(sb.ToString());
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
+        }
+
+        static void Maina(string[] args)
         {         
-            bool enableConsole = false;
+            bool enableConsole = true;
             while (true)
             {
                 string options;
@@ -88,30 +133,8 @@ namespace JiraThing
                 var durationService = new DurationService();
                 var customFieldService = new CustomFieldService(apiClient);
 
-                //    var jql = "project in (LMAM, LMDB, LMDEVOPS, LMEE, LMESIGS, LMBC, LMCSG2, LMCSG3, LM, LMTS, LMWP, LMWGA) AND status in (Closed, \"Ready for Deployment\") AND updated >= -30w ORDER BY cf[10004] ASC";
-                //    var jql = "project = LMAM AND summary ~ \"import tool\"";
-           //     var jql = "updated >= -2d";
                 var searchService = new SearchService(apiClient, customFieldService);
-
                 var reportService = new ReportService(searchService, activityFeedService, statusService, durationService);
-                //  var report = reportService.GetTimeReport(jql).ToArray();
-
-
-                Console.WriteLine("YOLO");
-          //      var acrpt = reportService.GetStoryPointAccuracy("updated >= -4w AND 'Developer(s)' in ('gcivil@accela.com', 'bmackey@accela.com', 'fatcha@accela.com', 'a.petrov@itransition.com', mmccook, 'a.panfilenok@itransition.com', 'mpastore@accela.com', 'mphillips@accela.com', 'vtien@accela.com')");
-                var acrpt = reportService.GetStoryPointAccuracy("Sprint = 628");
-                var sbc = new StringBuilder();
-                sbc.AppendLine("Ticket,Title,Estimated Hours,Logged Hours,Hours in Progress,Finished");
-                var fss = new FriendlyStringService();
-                foreach (var ar in acrpt)
-                    sbc.AppendFormat("{0},{1},{2},{3},{4},{5}", ar.Key,ar.Description.Replace(',',' '), fss.GetFriendlyString(TimeSpan.FromHours(ar.StoryPoints * 8f)), 
-                        fss.GetFriendlyString(ar.TotalWorkLogged), 
-                        fss.GetFriendlyString(ar.TotalTimeInProgress),
-                        ar.Finished)
-                        .AppendLine();
-
-                System.IO.File.WriteAllText("yolo2.csv", sbc.ToString());
-                return;
                 
 
 

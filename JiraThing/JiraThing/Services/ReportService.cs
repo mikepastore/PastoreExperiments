@@ -149,7 +149,7 @@ namespace JiraThing.Services
 
         public StandupReport GetStandupReport(DateTime day)
         {
-            var jql = string.Format("project in (LMAM, LMESIGS, LMDEVOPS, LMTS, LM, LMIMPORT, LMI, LMBC, LMCSG2, LMCSG3, LMDB, LMEE, LMWP, LMWGA) AND updated >= {0} AND updated <= {1}",
+            var jql = string.Format("project = LM AND updated >= {0} AND updated <= {1}",
                 day.AddDays(-1).ToString("yyyy-MM-dd"),
                 day.AddDays(1).ToString("yyyy-MM-dd"));
 
